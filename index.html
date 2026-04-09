@@ -52,7 +52,7 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .acts-section { margin-bottom:1.1rem; }
 .acts-section-label { font-size:.75rem; font-weight:600; color:var(--g500); letter-spacing:.05em; text-transform:uppercase; margin-bottom:.5rem; padding-left:2px; }
 .act-list { display:flex; flex-direction:column; gap:7px; }
-.act-item { display:flex; align-items:center; gap:11px; padding:.8rem 1rem; border-radius:var(--r); border:1.5px solid var(--g200); background:white; cursor:pointer; transition:all .17s; user-select:none; }
+.act-item { display:flex; align-items:flex-start; gap:11px; padding:.85rem 1rem; border-radius:var(--r); border:1.5px solid var(--g200); background:white; cursor:pointer; transition:all .17s; user-select:none; }
 .act-item:hover { border-color:var(--blue-border); background:var(--blue-light); }
 .act-item.rank-1 { border-color:var(--gold-border); background:var(--gold-light); }
 .act-item.rank-2 { border-color:var(--silver-border); background:var(--silver-light); }
@@ -62,9 +62,9 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .rank-2 .act-badge { background:var(--silver); color:white; border-color:var(--silver); }
 .rank-3 .act-badge { background:var(--bronze); color:white; border-color:var(--bronze); }
 .act-info { flex:1; min-width:0; }
-.act-name { font-size:.9rem; font-weight:500; }
-.act-meta { font-size:.74rem; color:var(--g500); margin-top:1px; }
-.act-tag { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; opacity:0; transition:opacity .17s; }
+.act-name { font-size:.9rem; font-weight:600; }
+.act-desc { font-size:.76rem; color:var(--g500); margin-top:3px; line-height:1.5; }
+.act-tag { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; opacity:0; transition:opacity .17s; flex-shrink:0; }
 .rank-1 .act-tag { opacity:1; background:var(--gold); color:white; }
 .rank-2 .act-tag { opacity:1; background:var(--silver); color:white; }
 .rank-3 .act-tag { opacity:1; background:var(--bronze); color:white; }
@@ -235,29 +235,39 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 // ══════════════════════════════════════════════
 //  請將下方網址替換為您的 Google Apps Script 部署網址
 // ══════════════════════════════════════════════
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyuzMZqqAvBBtOz9ouAVtdB070w9TOdgie85LUeweeahdk2eF9uQ3k8l1DMItznD1adoA/exec';
+const GAS_URL = 'YOUR_GAS_DEPLOY_URL_HERE';
 
+// 活動資料：依簡報內容整理，不顯示負責老師
 const ACTIVITIES = [
-  { teacher:'家兆老師', acts:[
-    { id:'5',  name:'博物館台北＋成果發表' },
-    { id:'AI', name:'AI台北' },
-  ]},
-  { teacher:'郁雯老師', acts:[
-    { id:'7', name:'惜別晚會' },
-    { id:'3', name:'第一天晚上的領導台北' },
-  ]},
-  { teacher:'曙天老師', acts:[
-    { id:'1', name:'始、結業' },
-    { id:'2', name:'台北學堂初遇－團隊建構' },
-  ]},
-  { teacher:'仲倫老師', acts:[
-    { id:'6', name:'晨間活動' },
-    { id:'4', name:'台北夜市尋寶' },
-  ]},
+  { id:'1',  name:'(一) 始業式・結業式',
+    desc:'負責開幕與閉幕典禮的流程主持，包含營隊包裝介紹、頒獎及引導學員填寫問卷與心得分享。' },
+  { id:'2',  name:'(二) 團隊建構',
+    desc:'帶領同隊學員透過設計好的互動活動彼此熟悉、建立默契，為整個營期的小隊合作打下基礎。' },
+  { id:'3',  name:'(三) 走讀博物館',
+    desc:'結合臺灣博物館展覽設計解謎積分活動，讓學員透過展品認識台灣歷史，同時培養領導力與團隊協作能力。' },
+  { id:'4',  name:'(四) 臺北之夜（走讀夜台北）',
+    desc:'帶學員探索夜間台北，走訪台北車站無家者議題、印尼街、蟾蜍山煥民新村、中和華新街等在地故事，各路線有外聘導覽員帶領。' },
+  { id:'5',  name:'(五) 捷運台北',
+    desc:'透過《捷運踩地雷》實境解謎，觀察各捷運站公共藝術與空間特色，並引導學員體會團隊中的多元領導表現。' },
+  { id:'6',  name:'(六) 臺北夜市尋寶',
+    desc:'帶學員前往台北各夜市，進行說文解字任務闖關，每完成一關可獲得印章，吃飽玩足的同時認識台灣文字文化。' },
+  { id:'7',  name:'(七) 惜別晚會',
+    desc:'營期最後一晚的送別活動，以多關卡闖關形式設計，讓學員在歡樂氣氛中留下美好的營隊最後記憶。' },
+  { id:'8',  name:'(八) 臺北學成果發表',
+    desc:'帶領各小組完成成果內容製作（動態或靜態皆可），再進行正式成果發表與投票頒獎，是營隊學習成果的總展現。' },
+  { id:'9',  name:'(九) 晨間活動',
+    desc:'每天早晨帶學員透過串燒舞蹈、倍速挑戰與趣味互動遊戲熱身醒腦，活力迎接美好的一天（保留時間讓學員吃早餐）。' },
 ];
 
 const ACT_MAP = {};
-ACTIVITIES.forEach(g => g.acts.forEach(a => ACT_MAP[a.id] = {...a, teacher:g.teacher}));
+ACTIVITIES.forEach(a => ACT_MAP[a.id] = a);
+
+// 老師對應（只寫入 Sheets，不顯示給學生）
+const ACT_TEACHER = {
+  '1':'郁雯老師','2':'聖哲老師','3':'家兆老師',
+  '4':'郁雯老師','5':'曙天老師','6':'家兆老師',
+  '7':'聖哲老師','8':'曙天老師','9':'郁雯老師',
+};
 
 let prefs = [null, null, null];
 let cur = 1;
@@ -265,23 +275,24 @@ let cur = 1;
 function renderActs() {
   const w = document.getElementById('acts-wrap');
   w.innerHTML = '';
-  ACTIVITIES.forEach(g => {
-    const s = document.createElement('div');
-    s.className = 'acts-section';
-    s.innerHTML = `<div class="acts-section-label">${g.teacher}負責</div><div class="act-list">`
-      + g.acts.map(a => {
-          const ri = prefs.indexOf(a.id);
-          const rc = ri >= 0 ? `rank-${ri+1}` : '';
-          const tags = ['🥇 第一','🥈 第二','🥉 第三'];
-          return `<div class="act-item ${rc}" onclick="togglePref('${a.id}')">
-            <div class="act-badge">${ri>=0 ? ri+1 : '✦'}</div>
-            <div class="act-info"><div class="act-name">${a.name}</div><div class="act-meta">${g.teacher}</div></div>
-            <div class="act-tag">${ri>=0 ? tags[ri] : ''}</div>
-          </div>`;
-        }).join('')
-      + '</div>';
-    w.appendChild(s);
-  });
+  const s = document.createElement('div');
+  s.className = 'acts-section';
+  s.innerHTML = '<div class="act-list">'
+    + ACTIVITIES.map(a => {
+        const ri = prefs.indexOf(a.id);
+        const rc = ri >= 0 ? `rank-${ri+1}` : '';
+        const tags = ['🥇 第一志願','🥈 第二志願','🥉 第三志願'];
+        return `<div class="act-item ${rc}" onclick="togglePref('${a.id}')">
+          <div class="act-badge" style="margin-top:2px">${ri>=0 ? ri+1 : '✦'}</div>
+          <div class="act-info">
+            <div class="act-name">${a.name}</div>
+            <div class="act-desc">${a.desc}</div>
+          </div>
+          <div class="act-tag">${ri>=0 ? tags[ri] : ''}</div>
+        </div>`;
+      }).join('')
+    + '</div>';
+  w.appendChild(s);
 }
 
 function togglePref(id) {
@@ -352,11 +363,11 @@ async function submitForm() {
   const body = {
     school: v('school'), grade: v('grade'), name: v('name'),
     pref1: prefs[0] ? ACT_MAP[prefs[0]].name : '',
-    pref1Teacher: prefs[0] ? ACT_MAP[prefs[0]].teacher : '',
+    pref1Teacher: prefs[0] ? (ACT_TEACHER[prefs[0]] || '') : '',
     pref2: prefs[1] ? ACT_MAP[prefs[1]].name : '',
-    pref2Teacher: prefs[1] ? ACT_MAP[prefs[1]].teacher : '',
+    pref2Teacher: prefs[1] ? (ACT_TEACHER[prefs[1]] || '') : '',
     pref3: prefs[2] ? ACT_MAP[prefs[2]].name : '',
-    pref3Teacher: prefs[2] ? ACT_MAP[prefs[2]].teacher : '',
+    pref3Teacher: prefs[2] ? (ACT_TEACHER[prefs[2]] || '') : '',
     time: now,
   };
 
