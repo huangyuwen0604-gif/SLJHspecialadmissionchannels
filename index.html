@@ -49,17 +49,20 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .field-hint { font-size:.74rem; color:var(--g400); margin-top:3px; }
 
 .acts-section { margin-bottom:1.1rem; }
-.acts-section-label { font-size:.75rem; font-weight:600; color:var(--g500); letter-spacing:.05em; text-transform:uppercase; margin-bottom:.5rem; padding-left:2px; }
 .act-list { display:flex; flex-direction:column; gap:7px; }
 .act-item { display:flex; align-items:flex-start; gap:11px; padding:.85rem 1rem; border-radius:var(--r); border:1.5px solid var(--g200); background:white; cursor:pointer; transition:all .17s; user-select:none; }
 .act-item:hover { border-color:var(--blue-border); background:var(--blue-light); }
 .act-item.rank-1 { border-color:var(--gold-border); background:var(--gold-light); }
 .act-item.rank-2 { border-color:var(--silver-border); background:var(--silver-light); }
 .act-item.rank-3 { border-color:var(--bronze-border); background:var(--bronze-light); }
+.act-item.rank-4 { border-color:#93c5fd; background:#eff6ff; }
+.act-item.rank-5 { border-color:#c4b5fd; background:#f5f3ff; }
 .act-badge { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; background:var(--g100); color:var(--g400); border:1.5px solid var(--g200); transition:all .17s; }
 .rank-1 .act-badge { background:var(--gold); color:white; border-color:var(--gold); }
 .rank-2 .act-badge { background:var(--silver); color:white; border-color:var(--silver); }
 .rank-3 .act-badge { background:var(--bronze); color:white; border-color:var(--bronze); }
+.rank-4 .act-badge { background:#2563eb; color:white; border-color:#2563eb; }
+.rank-5 .act-badge { background:#7c3aed; color:white; border-color:#7c3aed; }
 .act-info { flex:1; min-width:0; }
 .act-name { font-size:.9rem; font-weight:600; }
 .act-desc { font-size:.76rem; color:var(--g500); margin-top:3px; line-height:1.5; }
@@ -67,16 +70,24 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .rank-1 .act-tag { opacity:1; background:var(--gold); color:white; }
 .rank-2 .act-tag { opacity:1; background:var(--silver); color:white; }
 .rank-3 .act-tag { opacity:1; background:var(--bronze); color:white; }
+.rank-4 .act-tag { opacity:1; background:#2563eb; color:white; }
+.rank-5 .act-tag { opacity:1; background:#7c3aed; color:white; }
 
 .pref-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-bottom:1rem; }
 .pref-slot { border-radius:var(--r); border:1.5px dashed var(--g300); padding:.55rem .7rem; text-align:center; transition:all .2s; }
 .pref-slot.f1 { border-color:var(--gold-border); background:var(--gold-light); border-style:solid; }
 .pref-slot.f2 { border-color:var(--silver-border); background:var(--silver-light); border-style:solid; }
 .pref-slot.f3 { border-color:var(--bronze-border); background:var(--bronze-light); border-style:solid; }
+.pref-slot.f4 { border-color:#93c5fd; background:#eff6ff; border-style:solid; }
+.pref-slot.f5 { border-color:#c4b5fd; background:#f5f3ff; border-style:solid; }
 .ps-label { font-size:.68rem; font-weight:600; color:var(--g400); margin-bottom:2px; }
-.f1 .ps-label { color:var(--gold); } .f2 .ps-label { color:var(--silver); } .f3 .ps-label { color:var(--bronze); }
+.f1 .ps-label { color:var(--gold); }
+.f2 .ps-label { color:var(--silver); }
+.f3 .ps-label { color:var(--bronze); }
+.f4 .ps-label { color:#2563eb; }
+.f5 .ps-label { color:#7c3aed; }
 .ps-val { font-size:.8rem; font-weight:500; color:var(--g400); }
-.f1 .ps-val,.f2 .ps-val,.f3 .ps-val { color:var(--g900); }
+.f1 .ps-val,.f2 .ps-val,.f3 .ps-val,.f4 .ps-val,.f5 .ps-val { color:var(--g900); }
 
 .cf-row { display:flex; justify-content:space-between; align-items:flex-start; padding:.55rem 0; border-bottom:1px solid var(--g100); font-size:.88rem; }
 .cf-row:last-child { border-bottom:none; }
@@ -86,6 +97,8 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .pp1 { background:var(--gold-light); color:var(--gold-dark); border:1px solid var(--gold-border); }
 .pp2 { background:var(--silver-light); color:var(--silver); border:1px solid var(--silver-border); }
 .pp3 { background:var(--bronze-light); color:var(--bronze); border:1px solid var(--bronze-border); }
+.pp4 { background:#eff6ff; color:#2563eb; border:1px solid #93c5fd; }
+.pp5 { background:#f5f3ff; color:#7c3aed; border:1px solid #c4b5fd; }
 
 .btn-row { display:flex; gap:.75rem; margin-top:1.1rem; }
 .btn { flex:1; padding:.75rem 1rem; border-radius:var(--r); font-size:.9rem; font-weight:600; cursor:pointer; border:none; font-family:inherit; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:5px; }
@@ -123,7 +136,7 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 <div class="header">
   <div class="header-inner">
     <h1>🏕️ 隊輔活動志願填寫</h1>
-    <p>請依序填寫個人資料並選擇第1～3志願，老師將於收集完畢後統一分配。</p>
+    <p>請依序填寫個人資料並選擇第1～5志願，老師將於收集完畢後統一分配。</p>
   </div>
 </div>
 
@@ -174,6 +187,8 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
         <div class="pref-slot" id="sl1"><div class="ps-label">🥇 第一志願</div><div class="ps-val" id="pv1">尚未選擇</div></div>
         <div class="pref-slot" id="sl2"><div class="ps-label">🥈 第二志願</div><div class="ps-val" id="pv2">尚未選擇</div></div>
         <div class="pref-slot" id="sl3"><div class="ps-label">🥉 第三志願</div><div class="ps-val" id="pv3">尚未選擇</div></div>
+        <div class="pref-slot" id="sl4"><div class="ps-label">4️⃣ 第四志願</div><div class="ps-val" id="pv4">尚未選擇</div></div>
+        <div class="pref-slot" id="sl5"><div class="ps-label">5️⃣ 第五志願</div><div class="ps-val" id="pv5">尚未選擇</div></div>
       </div>
       <p style="font-size:.73rem;color:var(--g400);text-align:center">依序點擊活動標記志願，再次點擊可取消</p>
     </div>
@@ -244,7 +259,7 @@ const ACT_TEACHER = {
   '7':'聖哲老師','8':'曙天老師','9':'郁雯老師',
 };
 
-let prefs = [null, null, null];
+let prefs = [null, null, null, null, null];
 let cur = 1;
 
 function renderActs() {
@@ -256,7 +271,7 @@ function renderActs() {
     + ACTIVITIES.map(a => {
         const ri = prefs.indexOf(a.id);
         const rc = ri >= 0 ? `rank-${ri+1}` : '';
-        const tags = ['🥇 第一志願','🥈 第二志願','🥉 第三志願'];
+        const tags = ['🥇 第一志願','🥈 第二志願','🥉 第三志願','4️⃣ 第四志願','5️⃣ 第五志願'];
         return `<div class="act-item ${rc}" onclick="togglePref('${a.id}')">
           <div class="act-badge" style="margin-top:2px">${ri>=0 ? ri+1 : '✦'}</div>
           <div class="act-info">
@@ -274,11 +289,11 @@ function togglePref(id) {
   const ei = prefs.indexOf(id);
   if (ei >= 0) {
     prefs[ei] = null;
-    prefs = [...prefs.filter(Boolean), null, null, null].slice(0,3);
+    prefs = [...prefs.filter(Boolean), null, null, null, null, null].slice(0, 5);
   } else {
     const empty = prefs.indexOf(null);
     if (empty === -1) {
-      showErr('e2','已填滿三個志願，請先點選已標記的活動取消');
+      showErr('e2', '已填滿五個志願，請先點選已標記的活動取消');
       return;
     }
     prefs[empty] = id;
@@ -289,8 +304,8 @@ function togglePref(id) {
 }
 
 function updateSlots() {
-  const fc = ['f1','f2','f3'];
-  [0,1,2].forEach(i => {
+  const fc = ['f1','f2','f3','f4','f5'];
+  [0,1,2,3,4].forEach(i => {
     const sl = document.getElementById(`sl${i+1}`);
     const pv = document.getElementById(`pv${i+1}`);
     if (prefs[i]) {
@@ -304,7 +319,7 @@ function updateSlots() {
 }
 
 function resetPrefs() {
-  prefs = [null, null, null];
+  prefs = [null, null, null, null, null];
   updateSlots();
   renderActs();
 }
@@ -342,8 +357,8 @@ function toStep3() {
   document.getElementById('c-school').textContent = v('school');
   document.getElementById('c-grade').textContent = v('grade');
   document.getElementById('c-name').textContent = v('name');
-  const pc = ['pp1','pp2','pp3'];
-  const em = ['🥇','🥈','🥉'];
+  const pc = ['pp1','pp2','pp3','pp4','pp5'];
+  const em = ['🥇','🥈','🥉','4️⃣','5️⃣'];
   document.getElementById('c-prefs').innerHTML = prefs
     .map((id,i)=> id ? `<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>` : '')
     .filter(Boolean)
@@ -368,6 +383,10 @@ async function submitForm() {
     pref2Teacher: prefs[1] ? (ACT_TEACHER[prefs[1]] || '') : '',
     pref3: prefs[2] ? ACT_MAP[prefs[2]].name : '',
     pref3Teacher: prefs[2] ? (ACT_TEACHER[prefs[2]] || '') : '',
+    pref4: prefs[3] ? ACT_MAP[prefs[3]].name : '',
+    pref4Teacher: prefs[3] ? (ACT_TEACHER[prefs[3]] || '') : '',
+    pref5: prefs[4] ? ACT_MAP[prefs[4]].name : '',
+    pref5Teacher: prefs[4] ? (ACT_TEACHER[prefs[4]] || '') : '',
     time: now
   };
 
