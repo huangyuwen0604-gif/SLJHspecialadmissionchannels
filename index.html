@@ -48,7 +48,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .field input.err,.field select.err { border-color:var(--red); }
 .field-hint { font-size:.74rem; color:var(--g400); margin-top:3px; }
 
-/* activities */
 .acts-section { margin-bottom:1.1rem; }
 .acts-section-label { font-size:.75rem; font-weight:600; color:var(--g500); letter-spacing:.05em; text-transform:uppercase; margin-bottom:.5rem; padding-left:2px; }
 .act-list { display:flex; flex-direction:column; gap:7px; }
@@ -69,7 +68,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .rank-2 .act-tag { opacity:1; background:var(--silver); color:white; }
 .rank-3 .act-tag { opacity:1; background:var(--bronze); color:white; }
 
-/* pref summary */
 .pref-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-bottom:1rem; }
 .pref-slot { border-radius:var(--r); border:1.5px dashed var(--g300); padding:.55rem .7rem; text-align:center; transition:all .2s; }
 .pref-slot.f1 { border-color:var(--gold-border); background:var(--gold-light); border-style:solid; }
@@ -80,7 +78,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .ps-val { font-size:.8rem; font-weight:500; color:var(--g400); }
 .f1 .ps-val,.f2 .ps-val,.f3 .ps-val { color:var(--g900); }
 
-/* confirm */
 .cf-row { display:flex; justify-content:space-between; align-items:flex-start; padding:.55rem 0; border-bottom:1px solid var(--g100); font-size:.88rem; }
 .cf-row:last-child { border-bottom:none; }
 .cf-label { color:var(--g500); font-size:.8rem; flex-shrink:0; margin-right:1rem; }
@@ -90,7 +87,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .pp2 { background:var(--silver-light); color:var(--silver); border:1px solid var(--silver-border); }
 .pp3 { background:var(--bronze-light); color:var(--bronze); border:1px solid var(--bronze-border); }
 
-/* buttons */
 .btn-row { display:flex; gap:.75rem; margin-top:1.1rem; }
 .btn { flex:1; padding:.75rem 1rem; border-radius:var(--r); font-size:.9rem; font-weight:600; cursor:pointer; border:none; font-family:inherit; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:5px; }
 .btn-primary { background:var(--blue-mid); color:white; }
@@ -101,17 +97,14 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .btn-sm-red { background:white; color:var(--red); border:1.5px solid #fca5a5; padding:.5rem .9rem; font-size:.8rem; border-radius:var(--r); cursor:pointer; font-family:inherit; transition:background .18s; }
 .btn-sm-red:hover { background:var(--red-light); }
 
-/* success */
 .success-wrap { text-align:center; padding:2.5rem 1rem 2rem; }
 .success-icon { font-size:3rem; margin-bottom:.75rem; }
 .success-title { font-size:1.2rem; font-weight:700; color:var(--green); margin-bottom:.5rem; }
 .success-msg { font-size:.88rem; color:var(--g500); line-height:1.75; }
 
-/* error banner */
 .err-banner { background:var(--red-light); border:1px solid #fca5a5; border-radius:var(--r); padding:.65rem 1rem; font-size:.83rem; color:var(--red); margin-bottom:.9rem; display:none; }
 .err-banner.show { display:block; }
 
-/* overlay */
 .overlay { position:fixed; inset:0; background:rgba(255,255,255,.88); display:none; flex-direction:column; align-items:center; justify-content:center; gap:.9rem; z-index:999; }
 .overlay.show { display:flex; }
 .spinner { width:34px; height:34px; border:3px solid var(--g200); border-top-color:var(--blue-mid); border-radius:50%; animation:spin .7s linear infinite; }
@@ -144,7 +137,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 
 <div class="main">
 
-  <!-- Panel 1 -->
   <div class="panel active" id="panel-1">
     <div class="card">
       <div class="card-title">請填寫您的基本資料</div>
@@ -168,16 +160,15 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
     </div>
     <div class="err-banner" id="e1"></div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="toStep2()">下一步：選擇志願 →</button>
+      <button class="btn btn-primary" type="button" onclick="toStep2()">下一步：選擇志願 →</button>
     </div>
   </div>
 
-  <!-- Panel 2 -->
   <div class="panel" id="panel-2">
     <div class="card" style="padding-bottom:.8rem">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
         <div class="card-title" style="margin:0">您的志願</div>
-        <button class="btn-sm-red" onclick="resetPrefs()">↺ 重選</button>
+        <button class="btn-sm-red" type="button" onclick="resetPrefs()">↺ 重選</button>
       </div>
       <div class="pref-row">
         <div class="pref-slot" id="sl1"><div class="ps-label">🥇 第一志願</div><div class="ps-val" id="pv1">尚未選擇</div></div>
@@ -189,12 +180,11 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
     <div id="acts-wrap"></div>
     <div class="err-banner" id="e2"></div>
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goStep(1)">← 返回</button>
-      <button class="btn btn-primary" onclick="toStep3()">下一步：確認送出 →</button>
+      <button class="btn btn-ghost" type="button" onclick="goStep(1)">← 返回</button>
+      <button class="btn btn-primary" type="button" onclick="toStep3()">下一步：確認送出 →</button>
     </div>
   </div>
 
-  <!-- Panel 3 -->
   <div class="panel" id="panel-3">
     <div class="card">
       <div class="card-title">請確認您填寫的資料</div>
@@ -208,12 +198,11 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
     </p>
     <div class="err-banner" id="e3"></div>
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goStep(2)">← 返回</button>
-      <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">✅ 送出志願</button>
+      <button class="btn btn-ghost" type="button" onclick="goStep(2)">← 返回</button>
+      <button class="btn btn-primary" type="button" id="submit-btn" onclick="submitForm()">✅ 送出志願</button>
     </div>
   </div>
 
-  <!-- Panel 4 -->
   <div class="panel" id="panel-4">
     <div class="card">
       <div class="success-wrap">
@@ -232,37 +221,23 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-//  請將下方網址替換為您的 Google Apps Script 部署網址
-// ══════════════════════════════════════════════
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzqC-wtCB3t8pJWuE0AwKmcgYkTVRJudy0pzeVW3nI_zOgUSqvcxmvwx7IwJ461zl6MDg/exec';
 
-// 活動資料：依簡報內容整理，不顯示負責老師
 const ACTIVITIES = [
-  { id:'1',  name:'(一) 始業式・結業式',
-    desc:'負責開幕與閉幕典禮的流程主持，包含營隊包裝介紹、頒獎及引導學員填寫問卷與心得分享。' },
-  { id:'2',  name:'(二) 團隊建構',
-    desc:'帶領同隊學員透過設計好的互動活動彼此熟悉、建立默契，為整個營期的小隊合作打下基礎。' },
-  { id:'3',  name:'(三) 走讀博物館',
-    desc:'結合臺灣博物館展覽設計解謎積分活動，讓學員透過展品認識台灣歷史，同時培養領導力與團隊協作能力。' },
-  { id:'4',  name:'(四) 臺北之夜（走讀夜台北）',
-    desc:'帶學員探索夜間台北，走訪台北車站無家者議題、印尼街、蟾蜍山煥民新村、中和華新街等在地故事，各路線有外聘導覽員帶領。' },
-  { id:'5',  name:'(五) 捷運台北',
-    desc:'透過《捷運踩地雷》實境解謎，觀察各捷運站公共藝術與空間特色，並引導學員體會團隊中的多元領導表現。' },
-  { id:'6',  name:'(六) 臺北夜市尋寶',
-    desc:'帶學員前往台北各夜市，進行說文解字任務闖關，每完成一關可獲得印章，吃飽玩足的同時認識台灣文字文化。' },
-  { id:'7',  name:'(七) 惜別晚會',
-    desc:'營期最後一晚的送別活動，以多關卡闖關形式設計，讓學員在歡樂氣氛中留下美好的營隊最後記憶。' },
-  { id:'8',  name:'(八) 臺北學成果發表',
-    desc:'帶領各小組完成成果內容製作（動態或靜態皆可），再進行正式成果發表與投票頒獎，是營隊學習成果的總展現。' },
-  { id:'9',  name:'(九) 晨間活動',
-    desc:'每天早晨帶學員透過串燒舞蹈、倍速挑戰與趣味互動遊戲熱身醒腦，活力迎接美好的一天（保留時間讓學員吃早餐）。' },
+  { id:'1',  name:'(一) 始業式・結業式', desc:'負責開幕與閉幕典禮的流程主持，包含營隊包裝介紹、頒獎及引導學員填寫問卷與心得分享。' },
+  { id:'2',  name:'(二) 團隊建構', desc:'帶領同隊學員透過設計好的互動活動彼此熟悉、建立默契，為整個營期的小隊合作打下基礎。' },
+  { id:'3',  name:'(三) 走讀博物館', desc:'結合臺灣博物館展覽設計解謎積分活動，讓學員透過展品認識台灣歷史，同時培養領導力與團隊協作能力。' },
+  { id:'4',  name:'(四) 臺北之夜（走讀夜台北）', desc:'帶學員探索夜間台北，走訪台北車站無家者議題、印尼街、蟾蜍山煥民新村、中和華新街等在地故事，各路線有外聘導覽員帶領。' },
+  { id:'5',  name:'(五) 捷運台北', desc:'透過《捷運踩地雷》實境解謎，觀察各捷運站公共藝術與空間特色，並引導學員體會團隊中的多元領導表現。' },
+  { id:'6',  name:'(六) 臺北夜市尋寶', desc:'帶學員前往台北各夜市，進行說文解字任務闖關，每完成一關可獲得印章，吃飽玩足的同時認識台灣文字文化。' },
+  { id:'7',  name:'(七) 惜別晚會', desc:'營期最後一晚的送別活動，以多關卡闖關形式設計，讓學員在歡樂氣氛中留下美好的營隊最後記憶。' },
+  { id:'8',  name:'(八) 臺北學成果發表', desc:'帶領各小組完成成果內容製作（動態或靜態皆可），再進行正式成果發表與投票頒獎，是營隊學習成果的總展現。' },
+  { id:'9',  name:'(九) 晨間活動', desc:'每天早晨帶學員透過串燒舞蹈、倍速挑戰與趣味互動遊戲熱身醒腦，活力迎接美好的一天（保留時間讓學員吃早餐）。' },
 ];
 
 const ACT_MAP = {};
 ACTIVITIES.forEach(a => ACT_MAP[a.id] = a);
 
-// 老師對應（只寫入 Sheets，不顯示給學生）
 const ACT_TEACHER = {
   '1':'郁雯老師','2':'聖哲老師','3':'家兆老師',
   '4':'郁雯老師','5':'曙天老師','6':'家兆老師',
@@ -302,7 +277,10 @@ function togglePref(id) {
     prefs = [...prefs.filter(Boolean), null, null, null].slice(0,3);
   } else {
     const empty = prefs.indexOf(null);
-    if (empty === -1) { showErr('e2','已填滿三個志願，請先點選已標記的活動取消'); return; }
+    if (empty === -1) {
+      showErr('e2','已填滿三個志願，請先點選已標記的活動取消');
+      return;
+    }
     prefs[empty] = id;
   }
   hideErr('e2');
@@ -315,41 +293,61 @@ function updateSlots() {
   [0,1,2].forEach(i => {
     const sl = document.getElementById(`sl${i+1}`);
     const pv = document.getElementById(`pv${i+1}`);
-    if (prefs[i]) { sl.className = `pref-slot ${fc[i]}`; pv.textContent = ACT_MAP[prefs[i]].name; }
-    else { sl.className = 'pref-slot'; pv.textContent = '尚未選擇'; }
+    if (prefs[i]) {
+      sl.className = `pref-slot ${fc[i]}`;
+      pv.textContent = ACT_MAP[prefs[i]].name;
+    } else {
+      sl.className = 'pref-slot';
+      pv.textContent = '尚未選擇';
+    }
   });
 }
 
-function resetPrefs() { prefs=[null,null,null]; updateSlots(); renderActs(); }
+function resetPrefs() {
+  prefs = [null, null, null];
+  updateSlots();
+  renderActs();
+}
 
 function goStep(n) {
   document.getElementById(`panel-${cur}`).classList.remove('active');
   ['s1','s2','s3'].forEach((id,i) => {
-    document.getElementById(id).className = 'step' + (i+1<n?' done':i+1===n?' active':'');
+    document.getElementById(id).className = 'step' + (i + 1 < n ? ' done' : i + 1 === n ? ' active' : '');
   });
   cur = n;
   document.getElementById(`panel-${n}`).classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toStep2() {
-  const school = v('school'), grade = v('grade'), name = v('name');
-  if (!school||!grade||!name) { showErr('e1','請填寫所有必填欄位（學校、年級、姓名）'); markErr(); return; }
+  const school = v('school');
+  const grade = v('grade');
+  const name = v('name');
+  if (!school || !grade || !name) {
+    showErr('e1','請填寫所有必填欄位（學校、年級、姓名）');
+    markErr();
+    return;
+  }
   hideErr('e1');
   renderActs();
   goStep(2);
 }
 
 function toStep3() {
-  if (!prefs[0]) { showErr('e2','請至少選擇第一志願'); return; }
+  if (!prefs[0]) {
+    showErr('e2','請至少選擇第一志願');
+    return;
+  }
   hideErr('e2');
   document.getElementById('c-school').textContent = v('school');
   document.getElementById('c-grade').textContent = v('grade');
   document.getElementById('c-name').textContent = v('name');
-  const pc=['pp1','pp2','pp3'], em=['🥇','🥈','🥉'];
+  const pc = ['pp1','pp2','pp3'];
+  const em = ['🥇','🥈','🥉'];
   document.getElementById('c-prefs').innerHTML = prefs
-    .map((id,i)=>id?`<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>`:'')
-    .filter(Boolean).join('');
+    .map((id,i)=> id ? `<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>` : '')
+    .filter(Boolean)
+    .join('');
   goStep(3);
 }
 
@@ -359,42 +357,91 @@ async function submitForm() {
   showOverlay('送出中，請稍候⋯');
   hideErr('e3');
 
-  const now = new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});
+  const now = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
   const body = {
-    school: v('school'), grade: v('grade'), name: v('name'),
+    school: v('school'),
+    grade: v('grade'),
+    name: v('name'),
     pref1: prefs[0] ? ACT_MAP[prefs[0]].name : '',
     pref1Teacher: prefs[0] ? (ACT_TEACHER[prefs[0]] || '') : '',
     pref2: prefs[1] ? ACT_MAP[prefs[1]].name : '',
     pref2Teacher: prefs[1] ? (ACT_TEACHER[prefs[1]] || '') : '',
     pref3: prefs[2] ? ACT_MAP[prefs[2]].name : '',
     pref3Teacher: prefs[2] ? (ACT_TEACHER[prefs[2]] || '') : '',
-    time: now,
+    time: now
   };
 
   try {
-    const res = await fetch(GAS_URL, { method:'POST', body:JSON.stringify(body) });
-    const data = await res.json();
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(body),
+      redirect: 'follow'
+    });
+
+    const rawText = await res.text();
+    console.log('GAS raw response:', rawText);
+
+    if (!rawText || !rawText.trim().startsWith('{')) {
+      throw new Error('伺服器回傳的不是 JSON，請確認 Apps Script 已重新部署，且目前使用的是最新的 /exec 網址');
+    }
+
+    const data = JSON.parse(rawText);
+
     hideOverlay();
-    if (data.status === 'ok') { goStep(4); }
-    else { throw new Error(data.message||'伺服器回傳錯誤'); }
-  } catch(e) {
+
+    if (data.status === 'ok') {
+      goStep(4);
+    } else {
+      throw new Error(data.message || '伺服器回傳錯誤');
+    }
+  } catch (e) {
     hideOverlay();
     btn.disabled = false;
     showErr('e3', `送出失敗：${e.message}。請稍後再試或聯絡負責老師。`);
   }
 }
 
-function v(id) { return document.getElementById(id).value.trim(); }
-function showErr(id, msg) { const el=document.getElementById(id); el.textContent=msg; el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
-function hideErr(id) { document.getElementById(id).classList.remove('show'); }
-function showOverlay(msg) { document.getElementById('overlay-msg').textContent=msg; document.getElementById('overlay').classList.add('show'); }
-function hideOverlay() { document.getElementById('overlay').classList.remove('show'); }
-function markErr() {
-  ['school','name'].forEach(id => { if(!v(id)) document.getElementById(id).classList.add('err'); else document.getElementById(id).classList.remove('err'); });
-  const g=document.getElementById('grade'); if(!g.value) g.classList.add('err'); else g.classList.remove('err');
+function v(id) {
+  return document.getElementById(id).value.trim();
 }
-['school','name'].forEach(id => document.getElementById(id).addEventListener('input', ()=>document.getElementById(id).classList.remove('err')));
-document.getElementById('grade').addEventListener('change', ()=>document.getElementById('grade').classList.remove('err'));
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('show');
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function hideErr(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function showOverlay(msg) {
+  document.getElementById('overlay-msg').textContent = msg;
+  document.getElementById('overlay').classList.add('show');
+}
+
+function hideOverlay() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function markErr() {
+  ['school','name'].forEach(id => {
+    if (!v(id)) document.getElementById(id).classList.add('err');
+    else document.getElementById(id).classList.remove('err');
+  });
+  const g = document.getElementById('grade');
+  if (!g.value) g.classList.add('err');
+  else g.classList.remove('err');
+}
+
+['school','name'].forEach(id =>
+  document.getElementById(id).addEventListener('input', () => document.getElementById(id).classList.remove('err'))
+);
+document.getElementById('grade').addEventListener('change', () => document.getElementById('grade').classList.remove('err'));
 </script>
 </body>
 </html>
