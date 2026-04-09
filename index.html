@@ -48,7 +48,6 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .field input.err,.field select.err { border-color:var(--red); }
 .field-hint { font-size:.74rem; color:var(--g400); margin-top:3px; }
 
-.acts-section { margin-bottom:1.1rem; }
 .act-list { display:flex; flex-direction:column; gap:7px; }
 .act-item { display:flex; align-items:flex-start; gap:11px; padding:.85rem 1rem; border-radius:var(--r); border:1.5px solid var(--g200); background:white; cursor:pointer; transition:all .17s; user-select:none; }
 .act-item:hover { border-color:var(--blue-border); background:var(--blue-light); }
@@ -57,15 +56,18 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .act-item.rank-3 { border-color:var(--bronze-border); background:var(--bronze-light); }
 .act-item.rank-4 { border-color:#93c5fd; background:#eff6ff; }
 .act-item.rank-5 { border-color:#c4b5fd; background:#f5f3ff; }
+
 .act-badge { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; background:var(--g100); color:var(--g400); border:1.5px solid var(--g200); transition:all .17s; }
 .rank-1 .act-badge { background:var(--gold); color:white; border-color:var(--gold); }
 .rank-2 .act-badge { background:var(--silver); color:white; border-color:var(--silver); }
 .rank-3 .act-badge { background:var(--bronze); color:white; border-color:var(--bronze); }
 .rank-4 .act-badge { background:#2563eb; color:white; border-color:#2563eb; }
 .rank-5 .act-badge { background:#7c3aed; color:white; border-color:#7c3aed; }
+
 .act-info { flex:1; min-width:0; }
 .act-name { font-size:.9rem; font-weight:600; }
 .act-desc { font-size:.76rem; color:var(--g500); margin-top:3px; line-height:1.5; }
+
 .act-tag { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; opacity:0; transition:opacity .17s; flex-shrink:0; }
 .rank-1 .act-tag { opacity:1; background:var(--gold); color:white; }
 .rank-2 .act-tag { opacity:1; background:var(--silver); color:white; }
@@ -80,12 +82,14 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .pref-slot.f3 { border-color:var(--bronze-border); background:var(--bronze-light); border-style:solid; }
 .pref-slot.f4 { border-color:#93c5fd; background:#eff6ff; border-style:solid; }
 .pref-slot.f5 { border-color:#c4b5fd; background:#f5f3ff; border-style:solid; }
+
 .ps-label { font-size:.68rem; font-weight:600; color:var(--g400); margin-bottom:2px; }
 .f1 .ps-label { color:var(--gold); }
 .f2 .ps-label { color:var(--silver); }
 .f3 .ps-label { color:var(--bronze); }
 .f4 .ps-label { color:#2563eb; }
 .f5 .ps-label { color:#7c3aed; }
+
 .ps-val { font-size:.8rem; font-weight:500; color:var(--g400); }
 .f1 .ps-val,.f2 .ps-val,.f3 .ps-val,.f4 .ps-val,.f5 .ps-val { color:var(--g900); }
 
@@ -93,6 +97,7 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 .cf-row:last-child { border-bottom:none; }
 .cf-label { color:var(--g500); font-size:.8rem; flex-shrink:0; margin-right:1rem; }
 .cf-val { font-weight:500; text-align:right; }
+
 .ppill { display:inline-flex; align-items:center; gap:4px; padding:2px 9px; border-radius:20px; font-size:.76rem; font-weight:600; margin:2px; }
 .pp1 { background:var(--gold-light); color:var(--gold-dark); border:1px solid var(--gold-border); }
 .pp2 { background:var(--silver-light); color:var(--silver); border:1px solid var(--silver-border); }
@@ -162,8 +167,11 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
         <label>年級 *</label>
         <select id="grade">
           <option value="">請選擇年級</option>
-          <option>大一</option><option>大二</option><option>大三</option>
-          <option>大四</option><option>研究所</option>
+          <option>大一</option>
+          <option>大二</option>
+          <option>大三</option>
+          <option>大四</option>
+          <option>研究所</option>
         </select>
       </div>
       <div class="field">
@@ -183,6 +191,7 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
         <div class="card-title" style="margin:0">您的志願</div>
         <button class="btn-sm-red" type="button" onclick="resetPrefs()">↺ 重選</button>
       </div>
+
       <div class="pref-row">
         <div class="pref-slot" id="sl1"><div class="ps-label">🥇 第一志願</div><div class="ps-val" id="pv1">尚未選擇</div></div>
         <div class="pref-slot" id="sl2"><div class="ps-label">🥈 第二志願</div><div class="ps-val" id="pv2">尚未選擇</div></div>
@@ -190,8 +199,10 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
         <div class="pref-slot" id="sl4"><div class="ps-label">4️⃣ 第四志願</div><div class="ps-val" id="pv4">尚未選擇</div></div>
         <div class="pref-slot" id="sl5"><div class="ps-label">5️⃣ 第五志願</div><div class="ps-val" id="pv5">尚未選擇</div></div>
       </div>
+
       <p style="font-size:.73rem;color:var(--g400);text-align:center">依序點擊活動標記志願，再次點擊可取消</p>
     </div>
+
     <div id="acts-wrap"></div>
     <div class="err-banner" id="e2"></div>
     <div class="btn-row">
@@ -208,9 +219,11 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
       <div class="cf-row"><span class="cf-label">姓名</span><span class="cf-val" id="c-name"></span></div>
       <div class="cf-row"><span class="cf-label">志願</span><span class="cf-val" id="c-prefs"></span></div>
     </div>
+
     <p style="font-size:.78rem;color:var(--g500);margin-bottom:.9rem;line-height:1.65">
       資料送出後無法自行修改，如需更改請聯絡負責老師。<br>確認無誤後請按「送出志願」。
     </p>
+
     <div class="err-banner" id="e3"></div>
     <div class="btn-row">
       <button class="btn btn-ghost" type="button" onclick="goStep(2)">← 返回</button>
@@ -239,25 +252,19 @@ body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzqC-wtCB3t8pJWuE0AwKmcgYkTVRJudy0pzeVW3nI_zOgUSqvcxmvwx7IwJ461zl6MDg/exec';
 
 const ACTIVITIES = [
-  { id:'1',  name:'(一) 始業式・結業式', desc:'負責開幕與閉幕典禮的流程主持，包含營隊包裝介紹、頒獎及引導學員填寫問卷與心得分享。' },
-  { id:'2',  name:'(二) 團隊建構', desc:'帶領同隊學員透過設計好的互動活動彼此熟悉、建立默契，為整個營期的小隊合作打下基礎。' },
-  { id:'3',  name:'(三) 走讀博物館', desc:'結合臺灣博物館展覽設計解謎積分活動，讓學員透過展品認識台灣歷史，同時培養領導力與團隊協作能力。' },
-  { id:'4',  name:'(四) 臺北之夜（走讀夜台北）', desc:'帶學員探索夜間台北，走訪台北車站無家者議題、印尼街、蟾蜍山煥民新村、中和華新街等在地故事，各路線有外聘導覽員帶領。' },
-  { id:'5',  name:'(五) 捷運台北', desc:'透過《捷運踩地雷》實境解謎，觀察各捷運站公共藝術與空間特色，並引導學員體會團隊中的多元領導表現。' },
-  { id:'6',  name:'(六) 臺北夜市尋寶', desc:'帶學員前往台北各夜市，進行說文解字任務闖關，每完成一關可獲得印章，吃飽玩足的同時認識台灣文字文化。' },
-  { id:'7',  name:'(七) 惜別晚會', desc:'營期最後一晚的送別活動，以多關卡闖關形式設計，讓學員在歡樂氣氛中留下美好的營隊最後記憶。' },
-  { id:'8',  name:'(八) 臺北學成果發表', desc:'帶領各小組完成成果內容製作（動態或靜態皆可），再進行正式成果發表與投票頒獎，是營隊學習成果的總展現。' },
-  { id:'9',  name:'(九) 晨間活動', desc:'每天早晨帶學員透過串燒舞蹈、倍速挑戰與趣味互動遊戲熱身醒腦，活力迎接美好的一天（保留時間讓學員吃早餐）。' },
+  { id:'1', name:'(一) 始業式・結業式', desc:'負責開幕與閉幕典禮的流程主持，包含營隊包裝介紹、頒獎及引導學員填寫問卷與心得分享。' },
+  { id:'2', name:'(二) 團隊建構', desc:'帶領同隊學員透過設計好的互動活動彼此熟悉、建立默契，為整個營期的小隊合作打下基礎。' },
+  { id:'3', name:'(三) 走讀博物館', desc:'結合臺灣博物館展覽設計解謎積分活動，讓學員透過展品認識台灣歷史，同時培養領導力與團隊協作能力。' },
+  { id:'4', name:'(四) 臺北之夜（走讀夜台北）', desc:'帶學員探索夜間台北，走訪台北車站無家者議題、印尼街、蟾蜍山煥民新村、中和華新街等在地故事，各路線有外聘導覽員帶領。' },
+  { id:'5', name:'(五) 捷運台北', desc:'透過《捷運踩地雷》實境解謎，觀察各捷運站公共藝術與空間特色，並引導學員體會團隊中的多元領導表現。' },
+  { id:'6', name:'(六) 臺北夜市尋寶', desc:'帶學員前往台北各夜市，進行說文解字任務闖關，每完成一關可獲得印章，吃飽玩足的同時認識台灣文字文化。' },
+  { id:'7', name:'(七) 惜別晚會', desc:'營期最後一晚的送別活動，以多關卡闖關形式設計，讓學員在歡樂氣氛中留下美好的營隊最後記憶。' },
+  { id:'8', name:'(八) 臺北學成果發表', desc:'帶領各小組完成成果內容製作（動態或靜態皆可），再進行正式成果發表與投票頒獎，是營隊學習成果的總展現。' },
+  { id:'9', name:'(九) 晨間活動', desc:'每天早晨帶學員透過串燒舞蹈、倍速挑戰與趣味互動遊戲熱身醒腦，活力迎接美好的一天（保留時間讓學員吃早餐）。' }
 ];
 
 const ACT_MAP = {};
 ACTIVITIES.forEach(a => ACT_MAP[a.id] = a);
-
-const ACT_TEACHER = {
-  '1':'郁雯老師','2':'聖哲老師','3':'家兆老師',
-  '4':'郁雯老師','5':'曙天老師','6':'家兆老師',
-  '7':'聖哲老師','8':'曙天老師','9':'郁雯老師',
-};
 
 let prefs = [null, null, null, null, null];
 let cur = 1;
@@ -265,28 +272,31 @@ let cur = 1;
 function renderActs() {
   const w = document.getElementById('acts-wrap');
   w.innerHTML = '';
-  const s = document.createElement('div');
-  s.className = 'acts-section';
-  s.innerHTML = '<div class="act-list">'
-    + ACTIVITIES.map(a => {
+  const tags = ['🥇 第一志願','🥈 第二志願','🥉 第三志願','4️⃣ 第四志願','5️⃣ 第五志願'];
+
+  w.innerHTML = `
+    <div class="act-list">
+      ${ACTIVITIES.map(a => {
         const ri = prefs.indexOf(a.id);
-        const rc = ri >= 0 ? `rank-${ri+1}` : '';
-        const tags = ['🥇 第一志願','🥈 第二志願','🥉 第三志願','4️⃣ 第四志願','5️⃣ 第五志願'];
-        return `<div class="act-item ${rc}" onclick="togglePref('${a.id}')">
-          <div class="act-badge" style="margin-top:2px">${ri>=0 ? ri+1 : '✦'}</div>
-          <div class="act-info">
-            <div class="act-name">${a.name}</div>
-            <div class="act-desc">${a.desc}</div>
+        const rc = ri >= 0 ? `rank-${ri + 1}` : '';
+        return `
+          <div class="act-item ${rc}" onclick="togglePref('${a.id}')">
+            <div class="act-badge" style="margin-top:2px">${ri >= 0 ? ri + 1 : '✦'}</div>
+            <div class="act-info">
+              <div class="act-name">${a.name}</div>
+              <div class="act-desc">${a.desc}</div>
+            </div>
+            <div class="act-tag">${ri >= 0 ? tags[ri] : ''}</div>
           </div>
-          <div class="act-tag">${ri>=0 ? tags[ri] : ''}</div>
-        </div>`;
-      }).join('')
-    + '</div>';
-  w.appendChild(s);
+        `;
+      }).join('')}
+    </div>
+  `;
 }
 
 function togglePref(id) {
   const ei = prefs.indexOf(id);
+
   if (ei >= 0) {
     prefs[ei] = null;
     prefs = [...prefs.filter(Boolean), null, null, null, null, null].slice(0, 5);
@@ -298,6 +308,7 @@ function togglePref(id) {
     }
     prefs[empty] = id;
   }
+
   hideErr('e2');
   updateSlots();
   renderActs();
@@ -326,7 +337,7 @@ function resetPrefs() {
 
 function goStep(n) {
   document.getElementById(`panel-${cur}`).classList.remove('active');
-  ['s1','s2','s3'].forEach((id,i) => {
+  ['s1','s2','s3'].forEach((id, i) => {
     document.getElementById(id).className = 'step' + (i + 1 < n ? ' done' : i + 1 === n ? ' active' : '');
   });
   cur = n;
@@ -338,11 +349,13 @@ function toStep2() {
   const school = v('school');
   const grade = v('grade');
   const name = v('name');
+
   if (!school || !grade || !name) {
-    showErr('e1','請填寫所有必填欄位（學校、年級、姓名）');
+    showErr('e1', '請填寫所有必填欄位（學校、年級、姓名）');
     markErr();
     return;
   }
+
   hideErr('e1');
   renderActs();
   goStep(2);
@@ -350,19 +363,23 @@ function toStep2() {
 
 function toStep3() {
   if (!prefs[0]) {
-    showErr('e2','請至少選擇第一志願');
+    showErr('e2', '請至少選擇第一志願');
     return;
   }
+
   hideErr('e2');
   document.getElementById('c-school').textContent = v('school');
   document.getElementById('c-grade').textContent = v('grade');
   document.getElementById('c-name').textContent = v('name');
+
   const pc = ['pp1','pp2','pp3','pp4','pp5'];
   const em = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+
   document.getElementById('c-prefs').innerHTML = prefs
-    .map((id,i)=> id ? `<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>` : '')
+    .map((id, i) => id ? `<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>` : '')
     .filter(Boolean)
     .join('');
+
   goStep(3);
 }
 
@@ -373,20 +390,16 @@ async function submitForm() {
   hideErr('e3');
 
   const now = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+
   const body = {
     school: v('school'),
     grade: v('grade'),
     name: v('name'),
     pref1: prefs[0] ? ACT_MAP[prefs[0]].name : '',
-    pref1Teacher: prefs[0] ? (ACT_TEACHER[prefs[0]] || '') : '',
     pref2: prefs[1] ? ACT_MAP[prefs[1]].name : '',
-    pref2Teacher: prefs[1] ? (ACT_TEACHER[prefs[1]] || '') : '',
     pref3: prefs[2] ? ACT_MAP[prefs[2]].name : '',
-    pref3Teacher: prefs[2] ? (ACT_TEACHER[prefs[2]] || '') : '',
     pref4: prefs[3] ? ACT_MAP[prefs[3]].name : '',
-    pref4Teacher: prefs[3] ? (ACT_TEACHER[prefs[3]] || '') : '',
     pref5: prefs[4] ? ACT_MAP[prefs[4]].name : '',
-    pref5Teacher: prefs[4] ? (ACT_TEACHER[prefs[4]] || '') : '',
     time: now
   };
 
@@ -462,5 +475,6 @@ function markErr() {
 );
 document.getElementById('grade').addEventListener('change', () => document.getElementById('grade').classList.remove('err'));
 </script>
+
 </body>
 </html>
