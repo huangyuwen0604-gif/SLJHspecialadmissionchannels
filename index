@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隊輔活動志願填寫</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --blue: #1d4ed8; --blue-mid: #2563eb; --blue-light: #eff6ff; --blue-border: #bfdbfe;
+  --gold: #d97706; --gold-light: #fffbeb; --gold-border: #fcd34d; --gold-dark: #92400e;
+  --silver: #4b5563; --silver-light: #f9fafb; --silver-border: #d1d5db;
+  --bronze: #b45309; --bronze-light: #fef3c7; --bronze-border: #fbbf24;
+  --green: #15803d; --green-light: #f0fdf4;
+  --red: #dc2626; --red-light: #fef2f2;
+  --g50: #f9fafb; --g100: #f3f4f6; --g200: #e5e7eb; --g300: #d1d5db;
+  --g400: #9ca3af; --g500: #6b7280; --g700: #374151; --g900: #111827;
+  --r: 10px; --rl: 14px;
+}
+body { font-family: 'Noto Sans TC','Microsoft JhengHei',-apple-system,sans-serif; background:#eef2f7; min-height:100vh; color:var(--g900); }
+
+.header { background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 60%,#2563eb 100%); padding:1.75rem 2rem 1.4rem; color:white; }
+.header-inner { max-width:680px; margin:0 auto; }
+.header h1 { font-size:1.35rem; font-weight:700; }
+.header p { font-size:.85rem; opacity:.8; margin-top:5px; line-height:1.6; }
+
+.steps-bar { background:white; border-bottom:1px solid var(--g200); }
+.steps { max-width:680px; margin:0 auto; display:flex; }
+.step { flex:1; padding:.7rem .4rem; text-align:center; font-size:.75rem; color:var(--g400); font-weight:500; border-bottom:3px solid transparent; transition:all .25s; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.step.active { color:var(--blue-mid); border-bottom-color:var(--blue-mid); }
+.step.done { color:var(--green); border-bottom-color:var(--green); }
+.step-num { width:20px; height:20px; border-radius:50%; font-size:.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; background:var(--g200); color:var(--g500); }
+.step.active .step-num { background:var(--blue-mid); color:white; }
+.step.done .step-num { background:var(--green); color:white; }
+
+.main { max-width:680px; margin:0 auto; padding:1.5rem 1rem 3rem; }
+.panel { display:none; }
+.panel.active { display:block; }
+
+.card { background:white; border-radius:var(--rl); border:1px solid var(--g200); padding:1.4rem 1.5rem; margin-bottom:1.1rem; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+.card-title { font-size:.95rem; font-weight:600; margin-bottom:1rem; }
+
+.field { margin-bottom:.95rem; }
+.field:last-child { margin-bottom:0; }
+.field label { display:block; font-size:.82rem; font-weight:500; color:var(--g700); margin-bottom:5px; }
+.field input,.field select { width:100%; padding:.65rem .9rem; border:1.5px solid var(--g200); border-radius:var(--r); font-size:.95rem; outline:none; font-family:inherit; background:white; transition:border-color .2s,box-shadow .2s; color:var(--g900); }
+.field input:focus,.field select:focus { border-color:var(--blue-mid); box-shadow:0 0 0 3px var(--blue-light); }
+.field input.err,.field select.err { border-color:var(--red); }
+.field-hint { font-size:.74rem; color:var(--g400); margin-top:3px; }
+
+/* activities */
+.acts-section { margin-bottom:1.1rem; }
+.acts-section-label { font-size:.75rem; font-weight:600; color:var(--g500); letter-spacing:.05em; text-transform:uppercase; margin-bottom:.5rem; padding-left:2px; }
+.act-list { display:flex; flex-direction:column; gap:7px; }
+.act-item { display:flex; align-items:center; gap:11px; padding:.8rem 1rem; border-radius:var(--r); border:1.5px solid var(--g200); background:white; cursor:pointer; transition:all .17s; user-select:none; }
+.act-item:hover { border-color:var(--blue-border); background:var(--blue-light); }
+.act-item.rank-1 { border-color:var(--gold-border); background:var(--gold-light); }
+.act-item.rank-2 { border-color:var(--silver-border); background:var(--silver-light); }
+.act-item.rank-3 { border-color:var(--bronze-border); background:var(--bronze-light); }
+.act-badge { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; background:var(--g100); color:var(--g400); border:1.5px solid var(--g200); transition:all .17s; }
+.rank-1 .act-badge { background:var(--gold); color:white; border-color:var(--gold); }
+.rank-2 .act-badge { background:var(--silver); color:white; border-color:var(--silver); }
+.rank-3 .act-badge { background:var(--bronze); color:white; border-color:var(--bronze); }
+.act-info { flex:1; min-width:0; }
+.act-name { font-size:.9rem; font-weight:500; }
+.act-meta { font-size:.74rem; color:var(--g500); margin-top:1px; }
+.act-tag { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; opacity:0; transition:opacity .17s; }
+.rank-1 .act-tag { opacity:1; background:var(--gold); color:white; }
+.rank-2 .act-tag { opacity:1; background:var(--silver); color:white; }
+.rank-3 .act-tag { opacity:1; background:var(--bronze); color:white; }
+
+/* pref summary */
+.pref-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-bottom:1rem; }
+.pref-slot { border-radius:var(--r); border:1.5px dashed var(--g300); padding:.55rem .7rem; text-align:center; transition:all .2s; }
+.pref-slot.f1 { border-color:var(--gold-border); background:var(--gold-light); border-style:solid; }
+.pref-slot.f2 { border-color:var(--silver-border); background:var(--silver-light); border-style:solid; }
+.pref-slot.f3 { border-color:var(--bronze-border); background:var(--bronze-light); border-style:solid; }
+.ps-label { font-size:.68rem; font-weight:600; color:var(--g400); margin-bottom:2px; }
+.f1 .ps-label { color:var(--gold); } .f2 .ps-label { color:var(--silver); } .f3 .ps-label { color:var(--bronze); }
+.ps-val { font-size:.8rem; font-weight:500; color:var(--g400); }
+.f1 .ps-val,.f2 .ps-val,.f3 .ps-val { color:var(--g900); }
+
+/* confirm */
+.cf-row { display:flex; justify-content:space-between; align-items:flex-start; padding:.55rem 0; border-bottom:1px solid var(--g100); font-size:.88rem; }
+.cf-row:last-child { border-bottom:none; }
+.cf-label { color:var(--g500); font-size:.8rem; flex-shrink:0; margin-right:1rem; }
+.cf-val { font-weight:500; text-align:right; }
+.ppill { display:inline-flex; align-items:center; gap:4px; padding:2px 9px; border-radius:20px; font-size:.76rem; font-weight:600; margin:2px; }
+.pp1 { background:var(--gold-light); color:var(--gold-dark); border:1px solid var(--gold-border); }
+.pp2 { background:var(--silver-light); color:var(--silver); border:1px solid var(--silver-border); }
+.pp3 { background:var(--bronze-light); color:var(--bronze); border:1px solid var(--bronze-border); }
+
+/* buttons */
+.btn-row { display:flex; gap:.75rem; margin-top:1.1rem; }
+.btn { flex:1; padding:.75rem 1rem; border-radius:var(--r); font-size:.9rem; font-weight:600; cursor:pointer; border:none; font-family:inherit; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:5px; }
+.btn-primary { background:var(--blue-mid); color:white; }
+.btn-primary:hover { background:var(--blue); }
+.btn-primary:disabled { opacity:.4; cursor:not-allowed; }
+.btn-ghost { background:white; color:var(--g700); border:1.5px solid var(--g200); flex:0 0 auto; padding:.75rem 1.2rem; }
+.btn-ghost:hover { background:var(--g50); }
+.btn-sm-red { background:white; color:var(--red); border:1.5px solid #fca5a5; padding:.5rem .9rem; font-size:.8rem; border-radius:var(--r); cursor:pointer; font-family:inherit; transition:background .18s; }
+.btn-sm-red:hover { background:var(--red-light); }
+
+/* success */
+.success-wrap { text-align:center; padding:2.5rem 1rem 2rem; }
+.success-icon { font-size:3rem; margin-bottom:.75rem; }
+.success-title { font-size:1.2rem; font-weight:700; color:var(--green); margin-bottom:.5rem; }
+.success-msg { font-size:.88rem; color:var(--g500); line-height:1.75; }
+
+/* error banner */
+.err-banner { background:var(--red-light); border:1px solid #fca5a5; border-radius:var(--r); padding:.65rem 1rem; font-size:.83rem; color:var(--red); margin-bottom:.9rem; display:none; }
+.err-banner.show { display:block; }
+
+/* overlay */
+.overlay { position:fixed; inset:0; background:rgba(255,255,255,.88); display:none; flex-direction:column; align-items:center; justify-content:center; gap:.9rem; z-index:999; }
+.overlay.show { display:flex; }
+.spinner { width:34px; height:34px; border:3px solid var(--g200); border-top-color:var(--blue-mid); border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.overlay-msg { font-size:.88rem; color:var(--g700); font-weight:500; }
+
+@media(max-width:480px){
+  .header { padding:1.4rem 1rem 1.1rem; }
+  .card { padding:1.1rem 1rem; }
+  .pref-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>🏕️ 隊輔活動志願填寫</h1>
+    <p>請依序填寫個人資料並選擇第1～3志願，老師將於收集完畢後統一分配。</p>
+  </div>
+</div>
+
+<div class="steps-bar">
+  <div class="steps">
+    <div class="step active" id="s1"><div class="step-num">1</div>個人資料</div>
+    <div class="step" id="s2"><div class="step-num">2</div>選擇志願</div>
+    <div class="step" id="s3"><div class="step-num">3</div>確認送出</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Panel 1 -->
+  <div class="panel active" id="panel-1">
+    <div class="card">
+      <div class="card-title">請填寫您的基本資料</div>
+      <div class="field">
+        <label>就讀學校 *</label>
+        <input id="school" type="text" placeholder="例：國立台灣師範大學">
+        <div class="field-hint">請填寫完整校名</div>
+      </div>
+      <div class="field">
+        <label>年級 *</label>
+        <select id="grade">
+          <option value="">請選擇年級</option>
+          <option>大一</option><option>大二</option><option>大三</option>
+          <option>大四</option><option>研究所</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>姓名 *</label>
+        <input id="name" type="text" placeholder="請輸入真實姓名">
+      </div>
+    </div>
+    <div class="err-banner" id="e1"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="toStep2()">下一步：選擇志願 →</button>
+    </div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel" id="panel-2">
+    <div class="card" style="padding-bottom:.8rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+        <div class="card-title" style="margin:0">您的志願</div>
+        <button class="btn-sm-red" onclick="resetPrefs()">↺ 重選</button>
+      </div>
+      <div class="pref-row">
+        <div class="pref-slot" id="sl1"><div class="ps-label">🥇 第一志願</div><div class="ps-val" id="pv1">尚未選擇</div></div>
+        <div class="pref-slot" id="sl2"><div class="ps-label">🥈 第二志願</div><div class="ps-val" id="pv2">尚未選擇</div></div>
+        <div class="pref-slot" id="sl3"><div class="ps-label">🥉 第三志願</div><div class="ps-val" id="pv3">尚未選擇</div></div>
+      </div>
+      <p style="font-size:.73rem;color:var(--g400);text-align:center">依序點擊活動標記志願，再次點擊可取消</p>
+    </div>
+    <div id="acts-wrap"></div>
+    <div class="err-banner" id="e2"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goStep(1)">← 返回</button>
+      <button class="btn btn-primary" onclick="toStep3()">下一步：確認送出 →</button>
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel" id="panel-3">
+    <div class="card">
+      <div class="card-title">請確認您填寫的資料</div>
+      <div class="cf-row"><span class="cf-label">就讀學校</span><span class="cf-val" id="c-school"></span></div>
+      <div class="cf-row"><span class="cf-label">年級</span><span class="cf-val" id="c-grade"></span></div>
+      <div class="cf-row"><span class="cf-label">姓名</span><span class="cf-val" id="c-name"></span></div>
+      <div class="cf-row"><span class="cf-label">志願</span><span class="cf-val" id="c-prefs"></span></div>
+    </div>
+    <p style="font-size:.78rem;color:var(--g500);margin-bottom:.9rem;line-height:1.65">
+      資料送出後無法自行修改，如需更改請聯絡負責老師。<br>確認無誤後請按「送出志願」。
+    </p>
+    <div class="err-banner" id="e3"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goStep(2)">← 返回</button>
+      <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">✅ 送出志願</button>
+    </div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel" id="panel-4">
+    <div class="card">
+      <div class="success-wrap">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">志願送出成功！</div>
+        <div class="success-msg">感謝您完成填寫。<br>老師將於收集完所有隊輔志願後統一分配，<br>請耐心等候通知。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="overlay-msg" id="overlay-msg">送出中，請稍候⋯</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  請將下方網址替換為您的 Google Apps Script 部署網址
+// ══════════════════════════════════════════════
+const GAS_URL = 'YOUR_GAS_DEPLOY_URL_HERE';
+
+const ACTIVITIES = [
+  { teacher:'家兆老師', acts:[
+    { id:'5',  name:'博物館台北＋成果發表' },
+    { id:'AI', name:'AI台北' },
+  ]},
+  { teacher:'郁雯老師', acts:[
+    { id:'7', name:'惜別晚會' },
+    { id:'3', name:'第一天晚上的領導台北' },
+  ]},
+  { teacher:'曙天老師', acts:[
+    { id:'1', name:'始、結業' },
+    { id:'2', name:'台北學堂初遇－團隊建構' },
+  ]},
+  { teacher:'仲倫老師', acts:[
+    { id:'6', name:'晨間活動' },
+    { id:'4', name:'台北夜市尋寶' },
+  ]},
+];
+
+const ACT_MAP = {};
+ACTIVITIES.forEach(g => g.acts.forEach(a => ACT_MAP[a.id] = {...a, teacher:g.teacher}));
+
+let prefs = [null, null, null];
+let cur = 1;
+
+function renderActs() {
+  const w = document.getElementById('acts-wrap');
+  w.innerHTML = '';
+  ACTIVITIES.forEach(g => {
+    const s = document.createElement('div');
+    s.className = 'acts-section';
+    s.innerHTML = `<div class="acts-section-label">${g.teacher}負責</div><div class="act-list">`
+      + g.acts.map(a => {
+          const ri = prefs.indexOf(a.id);
+          const rc = ri >= 0 ? `rank-${ri+1}` : '';
+          const tags = ['🥇 第一','🥈 第二','🥉 第三'];
+          return `<div class="act-item ${rc}" onclick="togglePref('${a.id}')">
+            <div class="act-badge">${ri>=0 ? ri+1 : '✦'}</div>
+            <div class="act-info"><div class="act-name">${a.name}</div><div class="act-meta">${g.teacher}</div></div>
+            <div class="act-tag">${ri>=0 ? tags[ri] : ''}</div>
+          </div>`;
+        }).join('')
+      + '</div>';
+    w.appendChild(s);
+  });
+}
+
+function togglePref(id) {
+  const ei = prefs.indexOf(id);
+  if (ei >= 0) {
+    prefs[ei] = null;
+    prefs = [...prefs.filter(Boolean), null, null, null].slice(0,3);
+  } else {
+    const empty = prefs.indexOf(null);
+    if (empty === -1) { showErr('e2','已填滿三個志願，請先點選已標記的活動取消'); return; }
+    prefs[empty] = id;
+  }
+  hideErr('e2');
+  updateSlots();
+  renderActs();
+}
+
+function updateSlots() {
+  const fc = ['f1','f2','f3'];
+  [0,1,2].forEach(i => {
+    const sl = document.getElementById(`sl${i+1}`);
+    const pv = document.getElementById(`pv${i+1}`);
+    if (prefs[i]) { sl.className = `pref-slot ${fc[i]}`; pv.textContent = ACT_MAP[prefs[i]].name; }
+    else { sl.className = 'pref-slot'; pv.textContent = '尚未選擇'; }
+  });
+}
+
+function resetPrefs() { prefs=[null,null,null]; updateSlots(); renderActs(); }
+
+function goStep(n) {
+  document.getElementById(`panel-${cur}`).classList.remove('active');
+  ['s1','s2','s3'].forEach((id,i) => {
+    document.getElementById(id).className = 'step' + (i+1<n?' done':i+1===n?' active':'');
+  });
+  cur = n;
+  document.getElementById(`panel-${n}`).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function toStep2() {
+  const school = v('school'), grade = v('grade'), name = v('name');
+  if (!school||!grade||!name) { showErr('e1','請填寫所有必填欄位（學校、年級、姓名）'); markErr(); return; }
+  hideErr('e1');
+  renderActs();
+  goStep(2);
+}
+
+function toStep3() {
+  if (!prefs[0]) { showErr('e2','請至少選擇第一志願'); return; }
+  hideErr('e2');
+  document.getElementById('c-school').textContent = v('school');
+  document.getElementById('c-grade').textContent = v('grade');
+  document.getElementById('c-name').textContent = v('name');
+  const pc=['pp1','pp2','pp3'], em=['🥇','🥈','🥉'];
+  document.getElementById('c-prefs').innerHTML = prefs
+    .map((id,i)=>id?`<span class="ppill ${pc[i]}">${em[i]} ${ACT_MAP[id].name}</span>`:'')
+    .filter(Boolean).join('');
+  goStep(3);
+}
+
+async function submitForm() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  showOverlay('送出中，請稍候⋯');
+  hideErr('e3');
+
+  const now = new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});
+  const body = {
+    school: v('school'), grade: v('grade'), name: v('name'),
+    pref1: prefs[0] ? ACT_MAP[prefs[0]].name : '',
+    pref1Teacher: prefs[0] ? ACT_MAP[prefs[0]].teacher : '',
+    pref2: prefs[1] ? ACT_MAP[prefs[1]].name : '',
+    pref2Teacher: prefs[1] ? ACT_MAP[prefs[1]].teacher : '',
+    pref3: prefs[2] ? ACT_MAP[prefs[2]].name : '',
+    pref3Teacher: prefs[2] ? ACT_MAP[prefs[2]].teacher : '',
+    time: now,
+  };
+
+  try {
+    const res = await fetch(GAS_URL, { method:'POST', body:JSON.stringify(body) });
+    const data = await res.json();
+    hideOverlay();
+    if (data.status === 'ok') { goStep(4); }
+    else { throw new Error(data.message||'伺服器回傳錯誤'); }
+  } catch(e) {
+    hideOverlay();
+    btn.disabled = false;
+    showErr('e3', `送出失敗：${e.message}。請稍後再試或聯絡負責老師。`);
+  }
+}
+
+function v(id) { return document.getElementById(id).value.trim(); }
+function showErr(id, msg) { const el=document.getElementById(id); el.textContent=msg; el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+function hideErr(id) { document.getElementById(id).classList.remove('show'); }
+function showOverlay(msg) { document.getElementById('overlay-msg').textContent=msg; document.getElementById('overlay').classList.add('show'); }
+function hideOverlay() { document.getElementById('overlay').classList.remove('show'); }
+function markErr() {
+  ['school','name'].forEach(id => { if(!v(id)) document.getElementById(id).classList.add('err'); else document.getElementById(id).classList.remove('err'); });
+  const g=document.getElementById('grade'); if(!g.value) g.classList.add('err'); else g.classList.remove('err');
+}
+['school','name'].forEach(id => document.getElementById(id).addEventListener('input', ()=>document.getElementById(id).classList.remove('err')));
+document.getElementById('grade').addEventListener('change', ()=>document.getElementById('grade').classList.remove('err'));
+</script>
+</body>
+</html>
